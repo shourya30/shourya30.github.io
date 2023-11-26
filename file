@@ -1,0 +1,83 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from statsmodels.tsa.arima.model import ARIMA
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_absolute_error, mean_squared_error
+import numpy as np
+
+# Load the dataset
+df = pd.read_csv('/path/to/your/dataset.csv')
+
+# Data Cleaning
+df = df.iloc[4:].reset_index(drop=True)
+df.columns = df.iloc[0]
+df = df.drop(0).reset_index(drop=True)
+df.columns = df.columns.str.strip()
+df['Invoice Date'] = pd.to_datetime(df['Invoice Date'])
+df['Total Sales'] = df['Total Sales'].str.replace('US\$', '', regex=True).str.replace(',', '').astype(float)
+daily_sales = df.groupby('Invoice Date')['Total Sales'].sum().reset_index()
+
+# Data Visualization
+plt.figure(figsize=(15, 7))
+plt.plot(daily_sales['Invoice Date'], daily_sales['Total Sales'], label='Daily Sales')
+plt.title('Daily Sales Over Time')
+plt.xlabel('Date')
+plt.ylabel('Total Sales')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# Lagged Features for Random Forest
+for i in range(1, 4):
+    daily_sales[f'lag_{i}'] = daily_sales['Total Sales'].shift(i)
+daily_sales = daily_sales.dropna().reset_index(drop=True)
+
+# Splitting data for modeling
+train_size = int(len(daily_sales) * 0.8)
+train, test = daily_sales[:train_size], daily_sales[train_size:]
+
+# ARIMA Model Training
+arima_model = ARIMA(train['Total Sales'], order=(1,0,1))
+arima_result = arima_model.fit()
+print(arima_result.summary())
+
+# Random Forest Model Training
+X = train[['lag_1', 'lag_2', 'lag_3']]
+y = train['Total Sales']
+rf_model = RandomForestRegressor(n_estimators=100, random_state=42)
+rf_model.fit(X, y)
+
+# ARIMA Forecasting
+arima_forecast = arima_result.forecast(steps=len(test))
+
+# Random Forest Forecasting
+test_features = test[['lag_1', 'lag_2', 'lag_3']]
+rf_forecast = rf_model.predict(test_features)
+
+# Performance Metrics
+def calculate_metrics(actual, predicted):
+    mae = mean_absolute_error(actual, predicted)
+    mse = mean_squared_error(actual, predicted)
+    rmse = np.sqrt(mse)
+    return mae, mse, rmse
+
+arima_metrics = calculate_metrics(test['Total Sales'], arima_forecast)
+rf_metrics = calculate_metrics(test['Total Sales'], rf_forecast)
+print("ARIMA Metrics (MAE, MSE, RMSE):", arima_metrics)
+print("Random Forest Metrics (MAE, MSE, RMSE):", rf_metrics)
+
+# Visualization of Forecasts
+plt.figure(figsize=(15, 7))
+plt.plot(test['Invoice Date'], test['Total Sales'], label='Actual Sales', color='black', linestyle='dashed')
+plt.plot(test['Invoice Date'], arima_forecast, label='ARIMA Predictions', color='blue')
+plt.plot(test['Invoice Date'], rf_forecast, label='Random Forest Predictions', color='green')
+plt.title('Actual vs Predicted Sales')
+plt.xlabel('Date')
+plt.ylabel('Total Sales')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
