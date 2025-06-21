@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shourya Singh</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --gray-900: #111111;
+            --gray-800: #1a1a1a;
+            --gray-700: #333333;
+            --gray-500: #666666;
+            --gray-400: #999999;
+            --gray-300: #cccccc;
+            --gray-100: #f8fafc;
+            --white: #ffffff;
+            --blue: #0ea5e9;
+            --blue-dark: #0284c7;
+            --blue-light: #38bdf8;
+            --yellow: #f59e0b;
+            --yellow-light: #fbbf24;
+            --yellow-bg: #fef3c7;
+            --blue-bg: #e0f2fe;
+            --purple: #8b5cf6;
+            --green: #10b981;
+            --pink: #ec4899;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-800);
+            background: var(--white);
+            font-weight: 400;
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .container-wide {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+
+        .logo {
+            font-weight: 600;
+            color: var(--black);
+            text-decoration: none;
+            font-size: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-500);
+            font-weight: 400;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--blue);
+        }
+
+        main {
+            margin-top: 80px;
+        }
+
+        .hero {
+            padding: 8rem 0 6rem;
+            text-align: left;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at top right, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom left, rgba(245, 158, 11, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            color: var(--black);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero .intro {
+            font-size: 1.25rem;
+            line-height: 1.7;
+            color: var(--gray-700);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section {
+            padding: 6rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 500;
+            margin-bottom: 3rem;
+            color: var(--black);
+            letter-spacing: -0.01em;
+        }
+
+        .text-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray-700);
+            margin-bottom: 2rem;
+        }
+
+        .text-content strong {
+            color: var(--blue);
+            font-weight: 500;
+        }
+
+        .about-section {
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category h3 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--blue);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.875rem;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            color: var(--gray-700);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .experience-section {
+            border-top: 1px solid var(--gray-100);
+            background: linear-gradient(135deg, #fefefe 0%, #f8fafc 100%);
+        }
+
+        .experience-item {
+            margin-bottom: 4rem;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--gray-100);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .experience-company {
+            color: var(--blue);
+            font-weight: 400;
+        }
+
+        .experience-date {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .experience-description {
+            color: var(--gray-700);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .achievement-list {
+            list-style: none;
+        }
+
+        .achievement-list li {
+            color: var(--gray-700);
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .achievement-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--yellow);
+        }
+
+        .projects-section {
+            border-top: 1px solid var(--gray-100);
+            background: var(--blue-bg);
+        }
+
+        .project-grid {
+            display: grid;
+            gap: 4rem;
+        }
+
+        .project-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: start;
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(14, 165, 233, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .project-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(14, 165, 233, 0.15);
+        }
+
+        .project-title {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tech {
+            color: var(--yellow);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        .project-description {
+            color: var(--gray-700);
+            line-height: 1.7;
+        }
+
+        .education-section {
+            border-top: 1px solid var(--gray-100);
+            background: var(--white);
+        }
+
+        .education-grid {
+            display: grid;
+            gap: 3rem;
+        }
+
+        .education-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+            align-items: baseline;
+            padding: 2rem;
+            background: var(--gray-100);
+            border-radius: 8px;
+            border-left: 4px solid var(--blue);
+        }
+
+        .education-item:nth-child(2) {
+            border-left-color: var(--yellow);
+        }
+
+        .education-left {
+            text-align: right;
+        }
+
+        .education-year {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .education-location {
+            color: var(--gray-400);
+            font-size: 0.875rem;
+        }
+
+        .education-degree {
+            font-size: 1.125rem;
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 0.5rem;
+        }
+
+        .education-school {
+            color: var(--gray-700);
+            margin-bottom: 1rem;
+        }
+
+        .education-description {
+            color: var(--gray-700);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .certifications {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .cert-item {
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 8px;
+            border: 1px solid var(--gray-100);
+            transition: all 0.2s ease;
+        }
+
+        .cert-item:hover {
+            border-color: var(--blue);
+            box-shadow: 0 2px 8px rgba(14, 165, 233, 0.1);
+        }
+
+        .cert-item:nth-child(odd) {
+            border-left: 3px solid var(--blue);
+        }
+
+        .cert-item:nth-child(even) {
+            border-left: 3px solid var(--yellow);
+        }
+
+        .cert-title {
+            font-weight: 500;
+            color: var(--black);
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+
+        .cert-date {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+        }
+
+        .contact-section {
+            border-top: 1px solid var(--gray-100);
+            padding-bottom: 8rem;
+            background: linear-gradient(135deg, var(--gray-900) 0%, var(--black) 100%);
+            color: var(--white);
+        }
+
+        .contact-section .section-title {
+            color: var(--white);
+        }
+
+        .contact-section .text-content {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            font-size: 0.95rem;
+        }
+
+        .contact-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid var(--blue);
+            transition: all 0.2s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(4px);
+        }
+
+        .contact-item:nth-child(2) {
+            border-left-color: var(--yellow);
+        }
+
+        .contact-item:nth-child(3) {
+            border-left-color: var(--green);
+        }
+
+        .contact-label {
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+            font-weight: 500;
+        }
+
+        .contact-item:nth-child(2) .contact-label {
+            color: var(--yellow);
+        }
+
+        .contact-item:nth-child(3) .contact-label {
+            color: var(--green);
+        }
+
+        .contact-value a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            color: var(--blue);
+        }
+
+        .fun-note {
+            background: linear-gradient(135deg, var(--yellow-bg) 0%, #fef9c3 100%);
+            padding: 2rem;
+            margin: 3rem 0;
+            font-style: italic;
+            color: var(--gray-700);
+            line-height: 1.7;
+            border-left: 4px solid var(--yellow);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fun-note::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, var(--yellow) 0%, transparent 70%);
+            opacity: 0.1;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero .intro {
+                font-size: 1.125rem;
+            }
+
+            .section {
+                padding: 4rem 0;
+            }
+
+            .two-column,
+            .project-item,
+            .education-item,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .education-left {
+                text-align: left;
+            }
+
+            .skills-grid,
+            .cert-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 6rem 0 4rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Shourya Singh</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Making AI less scary,<br>one model at a time</h1>
+                <div class="intro">
+                    Just a girl who moved from economics to AI because apparently I like making my life complicated. 
+                    Currently building smart procurement systems & teaching machines to be less dumb than humans. 
+                    Spoiler: it's working.
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section about-section">
+            <div class="container">
+                <div class="two-column">
+                    <div>
+                        <h2 class="section-title">About</h2>
+                    </div>
+                    <div>
+                        <div class="text-content">
+                            So here's the thing — I started with <strong>economics</strong> because I thought understanding markets was cool. 
+                            Plot twist: I ended up falling in love with <strong>data</strong> and <strong>machine learning</strong> instead. 
+                            Now I spend my days building <strong>multi-agent AI systems</strong> that actually make sense of the chaos that is global procurement.
+                        </div>
+                        <div class="text-content">
+                            Currently working as a <strong>Procurement Technology Consultant</strong> where I get to play with <strong>LLMs</strong>, 
+                            <strong>CrewAI</strong>, and a bunch of other fancy tech to predict commodity prices and automate supply chain intelligence. 
+                            It's like being a fortune teller, except with more Python and fewer crystal balls.
+                        </div>
+                        
+                        <div class="fun-note">
+                            Fun fact: I've built AI agents that can predict chemical commodity prices better than most humans. 
+                            They're also probably better at small talk, but that's not saying much.
+                        </div>
+
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h3>Programming</h3>
+                                <ul class="skill-list">
+                                    <li>Python (my best friend)</li>
+                                    <li>SQL (for when data gets messy)</li>
+                                    <li>R (for the fancy stats)</li>
+                                    <li>Pandas, NumPy, Scikit-learn</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h3>AI & ML</h3>
+                                <ul class="skill-list">
+                                    <li>Large Language Models</li>
+                                    <li>CrewAI (multi-agent systems)</li>
+                                    <li>RAG (retrieval-augmented generation)</li>
+                                    <li>Prompt Engineering</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h3>Data Science</h3>
+                                <ul class="skill-list">
+                                    <li>Time-series Forecasting</li>
+                                    <li>ARIMA, Random Forest</li>
+                                    <li>XGBoost (the reliable one)</li>
+                                    <li>ETL Pipelines</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h3>Development</h3>
+                                <ul class="skill-list">
+                                    <li>API Development</li>
+                                    <li>Streamlit Dashboards</li>
+                                    <li>Agile Methodologies</li>
+                                    <li>Making complex things simple</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience" class="section experience-section">
+            <div class="container">
+                <h2 class="section-title">Experience</h2>
+                
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <div>
+                            <div class="experience-title">Procurement Technology Consultant</div>
+                            <div class="experience-company">SCMworx Business Solutions B.V</div>
+                        </div>
+                        <div class="experience-date">Jan 2024 – Present</div>
+                    </div>
+                    
+                    <div class="experience-description">
+                        Building AI-powered procurement intelligence systems that actually understand the chaos of global supply chains.
+                    </div>
+
+                    <div>
+                        <h4 style="font-weight: 500; color: var(--blue); margin-bottom: 1rem;">What I've built so far:</h4>
+                        <ul class="achievement-list">
+                            <li>Created a multi-agent AI system using CrewAI that actually understands procurement (shocking, I know)</li>
+                            <li>Built LLM-based agents that monitor global events and predict how they'll mess with supply chains</li>
+                            <li>Integrated data from multiple ERP systems without losing my sanity</li>
+                            <li>Designed dashboards that make procurement KPIs actually readable</li>
+                        </ul>
+                    </div>
+
+                    <div style="margin-top: 2rem;">
+                        <h4 style="font-weight: 500; color: var(--blue); margin-bottom: 1rem;">Currently working on:</h4>
+                        <ul class="achievement-list">
+                            <li>Building regression models that predict commodity prices (crystal ball 2.0)</li>
+                            <li>Enhancing multi-agent systems for better event monitoring</li>
+                            <li>Creating a rule-based supplier recommendation engine</li>
+                            <li>Scaling everything for production because test environments are too easy</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="section projects-section">
+            <div class="container">
+                <h2 class="section-title">Selected Projects</h2>
+                
+                <div class="project-grid">
+                    <div class="project-item">
+                        <div>
+                            <div class="project-title">Retail Forecasting</div>
+                            <div class="project-tech">ARIMA, Random Forest, SQL</div>
+                        </div>
+                        <div class="project-description">
+                            Built time-series models to predict retail sales and created SQL ETL pipelines because someone has to clean the data mess. 
+                            Turns out, predicting human shopping behavior is harder than predicting the weather.
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div>
+                            <div class="project-title">Airbnb Price Prediction</div>
+                            <div class="project-tech">XGBoost, Streamlit, Linear Regression</div>
+                        </div>
+                        <div class="project-description">
+                            Used ML models to help hosts price their places and built a Streamlit dashboard for real-time predictions. 
+                            Now hosts can scientifically justify charging $200 for a closet in Manhattan.
+                        </div>
+                    </div>
+
+                    <div class="project-item">
+                        <div>
+                            <div class="project-title">Movie Recommendation System</div>
+                            <div class="project-tech">Collaborative Filtering, Content-Based</div>
+                        </div>
+                        <div class="project-description">
+                            Built a recommendation engine using IMDb and MovieLens data with content-based, collaborative, and hybrid filtering. 
+                            Basically Netflix, but with more bugs and less budget.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section education-section">
+            <div class="container">
+                <h2 class="section-title">Education</h2>
+                
+                <div class="education-grid">
+                    <div class="education-item">
+                        <div class="education-left">
+                            <div class="education-year">2023</div>
+                            <div class="education-location">London, UK</div>
+                        </div>
+                        <div>
+                            <div class="education-degree">MSc Computing & Information Systems</div>
+                            <div class="education-school">Queen Mary University of London</div>
+                            <div class="education-description">
+                                Where I learned to make computers do smart things and databases behave properly. 
+                                Focused on data analytics, machine learning, and business information systems.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="education-item">
+                        <div class="education-left">
+                            <div class="education-year">2021</div>
+                            <div class="education-location">India</div>
+                        </div>
+                        <div>
+                            <div class="education-degree">Bachelor's in Economics</div>
+                            <div class="education-school">Christ University</div>
+                            <div class="education-description">
+                                Where I learned that markets are irrational and statistics don't lie (people do). 
+                                Specialized in econometrics and mathematical economics.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="certifications">
+                    <h3 style="font-weight: 500; color: var(--blue); margin-bottom: 2rem;">Recent Certifications</h3>
+                    <div class="cert-grid">
+                        <div class="cert-item">
+                            <div class="cert-title">Vanderbilt AI Agents and Agentic AI Architecture</div>
+                            <div class="cert-date">March 2025</div>
+                        </div>
+                        <div class="cert-item">
+                            <div class="cert-title">Multi AI Systems by CrewAI</div>
+                            <div class="cert-date">February 2025</div>
+                        </div>
+                        <div class="cert-item">
+                            <div class="cert-title">Unilever Supply Chain Certification</div>
+                            <div class="cert-date">July 2024</div>
+                        </div>
+                        <div class="cert-item">
+                            <div class="cert-title">MIT Supply Chain Analytics</div>
+                            <div class="cert-date">November 2023</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="section contact-section">
+            <div class="container">
+                <div class="contact-grid">
+                    <div>
+                        <h2 class="section-title">Get in touch</h2>
+                    </div>
+                    <div>
+                        <div class="text-content">
+                            I'm always interested in discussing new opportunities and innovative projects in data science and AI. 
+                            Hit me up if you want to chat about machine learning, terrible programming jokes, or why AI isn't actually taking over the world (yet).
+                        </div>
+                        
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <div class="contact-label">Email</div>
+                                <div class="contact-value">
+                                    <a href="mailto:singhshourya5131@gmail.com">singhshourya5131@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-label">Phone</div>
+                                <div class="contact-value">
+                                    <a href="tel:+447442858302">+44-7442858302</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-label">Location</div>
+                                <div class="contact-value">Redhill, Arnold, UK</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
